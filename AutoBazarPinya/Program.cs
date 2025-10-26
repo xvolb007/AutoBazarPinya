@@ -1,3 +1,8 @@
+using Domain.RepositoryInterfaces;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace AutoBazarPinya
 {
     public class Program
@@ -6,8 +11,13 @@ namespace AutoBazarPinya
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Should be moved to the service layer (StartupConfiguration) to avoid direct infrastructure dependency and reduce using clutter.
+            builder.Services.AddScoped<IVehicleRepository,VehicleRepository>();
 
             var app = builder.Build();
 

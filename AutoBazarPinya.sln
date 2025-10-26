@@ -5,6 +5,10 @@ VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoBazarPinya", "AutoBazarPinya\AutoBazarPinya.csproj", "{6448CB8B-172B-4F78-881D-BC25F1F64106}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{7E3617A4-E4EA-4E76-997E-1386FE312BC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{02F44973-895A-449A-ABB9-000B92777F14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6448CB8B-172B-4F78-881D-BC25F1F64106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6448CB8B-172B-4F78-881D-BC25F1F64106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6448CB8B-172B-4F78-881D-BC25F1F64106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E3617A4-E4EA-4E76-997E-1386FE312BC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E3617A4-E4EA-4E76-997E-1386FE312BC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E3617A4-E4EA-4E76-997E-1386FE312BC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E3617A4-E4EA-4E76-997E-1386FE312BC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02F44973-895A-449A-ABB9-000B92777F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02F44973-895A-449A-ABB9-000B92777F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02F44973-895A-449A-ABB9-000B92777F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02F44973-895A-449A-ABB9-000B92777F14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
