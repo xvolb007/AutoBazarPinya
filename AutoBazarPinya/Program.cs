@@ -1,3 +1,5 @@
+using Application.Interfaces;
+using Application.Services;
 using Domain.RepositoryInterfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
@@ -18,6 +20,7 @@ namespace AutoBazarPinya
 
             // Should be moved to the service layer (StartupConfiguration) to avoid direct infrastructure dependency and reduce using clutter.
             builder.Services.AddScoped<IVehicleRepository,VehicleRepository>();
+            builder.Services.AddScoped<IVehicleService,VehicleService>();
 
             var app = builder.Build();
 
