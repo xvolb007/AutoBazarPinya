@@ -41,6 +41,11 @@ namespace Application.Services
             var vehicle = await _repository.GetByIdAsync(id);
             return _mapper.Map<VehicleDto?>(vehicle);
         }
+        public async Task<VehicleDto?> GetByLicensePlateAsync(string licensePlate)
+        {
+            var exists = await _repository.GetByLicensePlateAsync(licensePlate);
+            return _mapper.Map<VehicleDto?>(exists);
+        }
 
         public async Task AddAsync(CreateVehicleDto dto)
         {

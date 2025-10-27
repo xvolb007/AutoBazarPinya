@@ -45,7 +45,15 @@ namespace AutoBazarPinya.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(viewModel);
         }
+        [HttpGet]
+        public async Task<JsonResult> CheckLicensePlate(string licensePlate, long? id = null)
+        {
+            var existing = await _vehicleService.GetByLicensePlateAsync(licensePlate);
 
+            bool isValid = existing == null || existing.Id == id;
+
+            return Json(isValid);
+        }
         //GET: /Vehicle/Create
         public IActionResult Create(string? returnUrl = null)
         {

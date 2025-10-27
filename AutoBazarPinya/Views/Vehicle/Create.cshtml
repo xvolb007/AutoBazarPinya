@@ -14,3 +14,6 @@
     <a href="@(ViewBag.ReturnUrl ?? Url.Action("Index"))" class="btn btn-secondary">Zpět</a>
 </form>
 
+@section Scripts {
+    <script src="~/js/validate-spz.js" asp-append-version="true"></script>
+}

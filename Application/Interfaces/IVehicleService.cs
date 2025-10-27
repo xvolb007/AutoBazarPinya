@@ -8,6 +8,7 @@ namespace Application.Interfaces
         Task<IEnumerable<VehicleDto>> GetAllAsync();
         Task<PagedResult<VehicleDto>> GetPagedAsync(DataTableRequest request);
         Task<VehicleDto?> GetByIdAsync(long id);
+        Task<VehicleDto?> GetByLicensePlateAsync(string licensePlate);
         Task AddAsync(CreateVehicleDto dto);
         Task UpdateAsync(UpdateVehicleDto dto);
         Task DeleteAsync(long id);

@@ -1,5 +1,6 @@
 ﻿@model ViewModels.VehicleViewModel
 
+<input type="hidden" asp-for="Id" id="VehicleId" />
 <div class="mb-3">
     <label asp-for="Manufacturer" class="form-label"></label>
     <input asp-for="Manufacturer" class="form-control" />
@@ -25,8 +26,9 @@
     </div>
     <div class="col-md-4 mb-3">
         <label asp-for="LicensePlate" class="form-label"></label>
-        <input asp-for="LicensePlate" class="form-control" placeholder="např. 1AB 2345" />
+        <input asp-for="LicensePlate" class="form-control" id="LicensePlate" placeholder="např. 1AB 2345" />
         <span asp-validation-for="LicensePlate" class="text-danger"></span>
+        <small id="spz-feedback" class="form-text text-danger"></small>
     </div>
 </div>
 
