@@ -1,4 +1,5 @@
 using Application.Interfaces;
+using Application.MappingProfiles;
 using Application.Services;
 using Domain.RepositoryInterfaces;
 using Infrastructure.Persistence;
@@ -21,6 +22,7 @@ namespace AutoBazarPinya
             // Should be moved to the service layer (StartupConfiguration) to avoid direct infrastructure dependency and reduce using clutter.
             builder.Services.AddScoped<IVehicleRepository,VehicleRepository>();
             builder.Services.AddScoped<IVehicleService,VehicleService>();
+            builder.Services.AddAutoMapper(typeof(VehicleProfile));
 
             var app = builder.Build();
 
@@ -41,7 +43,7 @@ namespace AutoBazarPinya
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Vehicle}/{action=Index}/{id?}");
 
             app.Run();
         }

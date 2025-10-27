@@ -25,13 +25,9 @@ namespace Application.Dtos
     }
     public class CreateVehicleDto : BaseVehicleDto
     {
-        [RegularExpression(@"^[A-Z0-9\-]+$", ErrorMessage = "Invalid license plate format.")]
-        public new required string LicensePlate { get; set; }
     }
     public class UpdateVehicleDto : BaseVehicleDto
     {
-        public double Id { get; set; }
-        [RegularExpression(@"^[A-Z0-9\-]+$", ErrorMessage = "Invalid license plate format.")]
-        public new required string LicensePlate { get; set; }
+        public long Id { get; set; }
     }
 }
