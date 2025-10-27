@@ -1,0 +1,16 @@
+﻿@model ViewModels.VehicleViewModel
+
+@{
+    ViewData["Title"] = "Nové vozidlo";
+}
+
+<h2>Nové vozidlo</h2>
+
+<form asp-action="Create" method="post" class="mt-3">
+    <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl)" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <partial name="_VehicleForm" model="Model" />
+    <button type="submit" class="btn btn-primary">Uložit</button>
+    <a href="@(ViewBag.ReturnUrl ?? Url.Action("Index"))" class="btn btn-secondary">Zpět</a>
+</form>
+

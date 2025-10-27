@@ -1,0 +1,19 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Statistiky";
+}
+
+<h2>Statistiky vozidel</h2>
+
+<table class="table table-bordered w-50">
+    <tr><th>Celkem vozidel</th><td>@Model.Total</td></tr>
+    <tr><th>Najeto méně než 100 000 km</th><td>@Model.LowMileage</td></tr>
+    <tr><th>Najeto více než 100 000 km</th><td>@Model.HighMileage</td></tr>
+    <tr><th>Benzín</th><td>@Model.Petrol</td></tr>
+    <tr><th>Nafta</th><td>@Model.Diesel</td></tr>
+    <tr><th>Vynikající stav</th><td>@Model.Excellent</td></tr>
+    <tr><th>Špatný stav</th><td>@Model.Poor</td></tr>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>

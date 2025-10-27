@@ -1,0 +1,22 @@
+﻿@model ViewModels.VehicleViewModel
+
+@{
+    ViewData["Title"] = "Detail vozidla";
+}
+
+<h2>Detail vozidla</h2>
+
+<table class="table table-bordered">
+    <tr><th>Výrobce</th><td>@Model.Manufacturer</td></tr>
+    <tr><th>Model</th><td>@Model.Model</td></tr>
+    <tr><th>Rok</th><td>@Model.Year</td></tr>
+    <tr><th>SPZ</th><td>@Model.LicensePlate</td></tr>
+    <tr><th>Stav</th><td>@Model.Condition</td></tr>
+    <tr><th>Najeto (km)</th><td>@Model.Mileage</td></tr>
+    <tr><th>Palivo</th><td>@Model.Fuel</td></tr>
+    <tr><th>Karoserie</th><td>@Model.Body</td></tr>
+    <tr><th>Poznámky</th><td>@Model.Notes</td></tr>
+</table>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-warning">Upravit</a>
+<a href="@(ViewBag.ReturnUrl ?? Url.Action("Index"))"class="btn btn-secondary">Zpět</a>
