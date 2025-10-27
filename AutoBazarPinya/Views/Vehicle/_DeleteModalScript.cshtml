@@ -1,0 +1,41 @@
+﻿<script>
+    $(function () {
+        let deleteId = null;
+        const modal = $('#deleteModal');
+        const table = $('#vehiclesTable');
+
+        modal.on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            deleteId = button.data('id');
+            const spz = button.data('spz');
+            $('#spz').text(spz);
+        });
+
+        $('#confirmDeleteBtn').on('click', function () {
+            if (!deleteId) return;
+
+            const token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: `/Vehicle/DeleteConfirmed/${deleteId}`,
+                type: 'POST',
+                headers: {
+                    'RequestVerificationToken': token
+                },
+                success: function () {
+                    table.find(`tr[data-id="${deleteId}"]`).fadeOut(400, function () {
+                        $(this).remove();
+                        if (table.find('tbody tr').length === 0) {
+                            table.replaceWith('<div class="alert alert-info mt-3">Zatím nejsou žádná vozidla v databázi.</div>');
+                        }
+                    });
+                    modal.modal('hide');
+                },
+                error: function (xhr) {
+                    console.error(xhr.responseText);
+                    alert('Chyba při mazání vozidla.');
+                }
+            });
+        });
+    });
+</script>

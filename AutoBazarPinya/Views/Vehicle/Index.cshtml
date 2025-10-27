@@ -16,8 +16,8 @@
 else
 {
     <div class="table-responsive shadow-sm rounded-3" style="max-height: 70vh; overflow-y: auto;">
-        <table class="table table-striped align-middle">
-            <thead>
+        <table class="table table-striped align-middle mb-0" id="vehiclesTable">
+            <thead class="table-dark position-sticky top-0">
                 <tr>
                     <th>Výrobce</th>
                     <th>Model</th>
@@ -30,7 +30,7 @@ else
             <tbody>
                 @foreach (var v in Model)
                 {
-                    <tr>
+                    <tr data-id="@v.Id">
                         <td>@v.Manufacturer</td>
                         <td>@v.Model</td>
                         <td>@v.Year</td>
@@ -45,11 +45,25 @@ else
                                asp-route-id="@v.Id"
                                asp-route-returnUrl="@Context.Request.Path"
                                class="btn btn-sm btn-outline-warning me-1">Upravit</a>
-                            <a asp-action="Delete" asp-route-id="@v.Id" class="btn btn-sm btn-outline-danger">Smazat</a>
+
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-id="@v.Id"
+                                    data-spz="@v.LicensePlate">
+                                Smazat
+                            </button>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+}
+
+<partial name="_DeleteModal" />
+
+@section Scripts {
+    <partial name="_DeleteModalScript" />
 }

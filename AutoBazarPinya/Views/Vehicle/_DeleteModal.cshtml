@@ -1,0 +1,20 @@
+﻿<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Potvrzení smazání</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Zavřít"></button>
+            </div>
+
+            <div class="modal-body">
+                Opravdu chcete smazat vozidlo s SPZ <strong id="spz"></strong>?
+            </div>
+
+            <div class="modal-footer">
+                @Html.AntiForgeryToken()
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zrušit</button>
+                <button id="confirmDeleteBtn" type="button" class="btn btn-danger">Smazat</button>
+            </div>
+        </div>
+    </div>
+</div>

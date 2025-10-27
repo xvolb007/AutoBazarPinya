@@ -89,16 +89,6 @@ namespace AutoBazarPinya.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: /Vehicle/Delete/5
-        public async Task<IActionResult> Delete(long id)
-        {
-            var vehicle = await _vehicleService.GetByIdAsync(id);
-            if (vehicle == null)
-                return NotFound();
-            var viewModel = _mapper.Map<VehicleViewModel>(vehicle);
-            return View(viewModel);
-        }
-
         // POST: /Vehicle/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
