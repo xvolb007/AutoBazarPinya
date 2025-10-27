@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoBazarPinya.Models;
 using AutoMapper;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels;
 
@@ -26,7 +27,13 @@ namespace AutoBazarPinya.Controllers
 
             return View(viewModels);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetPaged([FromForm] DataTableRequest request)
+        {
+            var result = await _vehicleService.GetPagedAsync(request);
+            return Json(result);
+        }
         // GET: /Vehicle/Details/5
         public async Task<IActionResult> Details(long id, string? returnUrl = null)
         {

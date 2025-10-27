@@ -1,5 +1,7 @@
 ﻿using Domain.Enums;
+using Domain.Extensions;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Application.Dtos
 {
@@ -9,12 +11,18 @@ namespace Application.Dtos
         public string? Model { get; set; }
         public int Year { get; set; }
         public int Mileage { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public FuelType Fuel { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public BodyType Body { get; set; }
         public string? LicensePlate { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public VehicleCondition Condition { get; set; }
         public DateTime InStockSince { get; set; } = DateTime.UtcNow;
         public string? Notes { get; set; }
+        public string FuelDisplay => Fuel.GetDisplayName();
+        public string BodyDisplay => Body.GetDisplayName();
+        public string ConditionDisplay => Condition.GetDisplayName();
     }
 
     public class VehicleDto : BaseVehicleDto

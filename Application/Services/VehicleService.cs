@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Models;
 using Domain.RepositoryInterfaces;
 
 namespace Application.Services
@@ -21,6 +22,18 @@ namespace Application.Services
         {
             var vehicles = await _repository.GetAllAsync();
             return _mapper.Map<IEnumerable<VehicleDto>>(vehicles);
+        }
+        public async Task<PagedResult<VehicleDto>> GetPagedAsync(DataTableRequest request)
+        {
+            var pagedEntities = await _repository.GetPagedAsync(request);
+
+            return new PagedResult<VehicleDto>
+            {
+                Draw = request.Draw,
+                RecordsTotal = pagedEntities.RecordsTotal,
+                RecordsFiltered = pagedEntities.RecordsFiltered,
+                Data = _mapper.Map<IEnumerable<VehicleDto>>(pagedEntities.Data)
+            };
         }
 
         public async Task<VehicleDto?> GetByIdAsync(long id)
