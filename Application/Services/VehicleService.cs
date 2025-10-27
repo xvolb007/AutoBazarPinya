@@ -23,7 +23,7 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<VehicleDto>>(vehicles);
         }
 
-        public async Task<VehicleDto?> GetByIdAsync(double id)
+        public async Task<VehicleDto?> GetByIdAsync(long id)
         {
             var vehicle = await _repository.GetByIdAsync(id);
             return _mapper.Map<VehicleDto?>(vehicle);
@@ -53,7 +53,7 @@ namespace Application.Services
             await _repository.UpdateAsync(existing);
         }
 
-        public async Task DeleteAsync(double id)
+        public async Task DeleteAsync(long id)
         {
             await _repository.DeleteAsync(id);
         }
