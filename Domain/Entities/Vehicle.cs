@@ -3,7 +3,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace Domain.Entities
 {
-    public class Vehicle : BaseEntity<double>
+    public class Vehicle : BaseEntity<long>
     {
         public string? Manufacturer { get; set; }
         public string? Model { get; set; }

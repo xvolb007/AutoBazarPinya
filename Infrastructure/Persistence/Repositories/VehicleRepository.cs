@@ -21,7 +21,7 @@ namespace Infrastructure.Persistence.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Vehicle?> GetByIdAsync(double id)
+        public async Task<Vehicle?> GetByIdAsync(long id)
         {
             return await _context.Vehicles
                 .AsNoTracking()
@@ -47,7 +47,7 @@ namespace Infrastructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(double id)
+        public async Task DeleteAsync(long id)
         {
             var entity = await _context.Vehicles.FindAsync(id);
             if (entity != null)
