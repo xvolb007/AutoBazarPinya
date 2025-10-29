@@ -22,24 +22,24 @@ namespace AutoBazarPinya.Controllers
         }
 
         // GET: /Vehicle
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var vehicles = await _vehicleService.GetAllAsync();
+            var vehicles = await _vehicleService.GetAllAsync(cancellationToken);
             var viewModels = _mapper.Map<IEnumerable<VehicleViewModel>>(vehicles);
 
             return View(viewModels);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GetPaged([FromForm] DataTableRequest request)
+        public async Task<IActionResult> GetPaged([FromForm] DataTableRequest request, CancellationToken cancellationToken)
         {
-            var result = await _vehicleService.GetPagedAsync(request);
+            var result = await _vehicleService.GetPagedAsync(request, cancellationToken);
             return Json(result);
         }
         // GET: /Vehicle/Details/5
-        public async Task<IActionResult> Details(long id, string? returnUrl = null)
+        public async Task<IActionResult> Details(long id, CancellationToken cancellationToken, string? returnUrl = null)
         {
-            var vehicle = await _vehicleService.GetByIdAsync(id);
+            var vehicle = await _vehicleService.GetByIdAsync(id, cancellationToken);
             if (vehicle == null)
                 return NotFound();
 
@@ -48,9 +48,9 @@ namespace AutoBazarPinya.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public async Task<JsonResult> CheckLicensePlate(string licensePlate, long? id = null)
+        public async Task<JsonResult> CheckLicensePlate(string licensePlate, CancellationToken cancellationToken, long? id = null)
         {
-            var existing = await _vehicleService.GetByLicensePlateAsync(licensePlate);
+            var existing = await _vehicleService.GetByLicensePlateAsync(licensePlate, cancellationToken);
 
             bool isValid = existing == null || existing.Id == id;
 
@@ -124,10 +124,10 @@ namespace AutoBazarPinya.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Count([FromForm] VehicleFilterVm vm)
+        public async Task<IActionResult> Count([FromForm] VehicleFilterVm vm, CancellationToken cancellationToken)
         {
             var filters = _vehicleFilterMapper.Map(vm);
-            var count = await _vehicleService.GetFilteredCountAsync(filters);
+            var count = await _vehicleService.GetFilteredCountAsync(filters, cancellationToken);
             return Json(new { count });
         }
     }

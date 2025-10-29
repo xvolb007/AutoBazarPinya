@@ -4,6 +4,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Models;
 using Domain.RepositoryInterfaces;
+using System.Threading;
 
 namespace Application.Services
 {
@@ -18,14 +19,14 @@ namespace Application.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<VehicleDto>> GetAllAsync()
+        public async Task<IEnumerable<VehicleDto>> GetAllAsync(CancellationToken cancellationToken)
         {
-            var vehicles = await _repository.GetAllAsync();
+            var vehicles = await _repository.GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<VehicleDto>>(vehicles);
         }
-        public async Task<PagedResult<VehicleDto>> GetPagedAsync(DataTableRequest request)
+        public async Task<PagedResult<VehicleDto>> GetPagedAsync(DataTableRequest request, CancellationToken cancellationToken)
         {
-            var pagedEntities = await _repository.GetPagedAsync(request);
+            var pagedEntities = await _repository.GetPagedAsync(request, cancellationToken);
 
             return new PagedResult<VehicleDto>
             {
@@ -36,14 +37,14 @@ namespace Application.Services
             };
         }
 
-        public async Task<VehicleDto?> GetByIdAsync(long id)
+        public async Task<VehicleDto?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
         {
-            var vehicle = await _repository.GetByIdAsync(id);
+            var vehicle = await _repository.GetByIdAsync(id, cancellationToken);
             return _mapper.Map<VehicleDto?>(vehicle);
         }
-        public async Task<VehicleDto?> GetByLicensePlateAsync(string licensePlate)
+        public async Task<VehicleDto?> GetByLicensePlateAsync(string licensePlate, CancellationToken cancellationToken)
         {
-            var exists = await _repository.GetByLicensePlateAsync(licensePlate);
+            var exists = await _repository.GetByLicensePlateAsync(licensePlate, cancellationToken);
             return _mapper.Map<VehicleDto?>(exists);
         }
 
@@ -75,9 +76,9 @@ namespace Application.Services
         {
             await _repository.DeleteAsync(id);
         }
-        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters)
+        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters, CancellationToken cancellationToken)
         {
-            return await _repository.GetFilteredCountAsync(filters);
+            return await _repository.GetFilteredCountAsync(filters, cancellationToken);
         }
     }
 }

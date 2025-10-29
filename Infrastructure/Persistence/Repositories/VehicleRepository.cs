@@ -16,14 +16,14 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Vehicle>> GetAllAsync()
+        public async Task<IEnumerable<Vehicle>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Vehicles
                 .AsNoTracking()
                 .OrderBy(v => v.Manufacturer)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
-        public async Task<Domain.Models.PagedResult<Vehicle>> GetPagedAsync(DataTableRequest request)
+        public async Task<Domain.Models.PagedResult<Vehicle>> GetPagedAsync(DataTableRequest request, CancellationToken cancellationToken = default)
         {
             var query = _context.Vehicles.AsQueryable();
 
@@ -51,7 +51,7 @@ namespace Infrastructure.Persistence.Repositories
                 .Skip(request.Start)
                 .Take(request.Length)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new Domain.Models.PagedResult<Vehicle>
             {
@@ -61,18 +61,18 @@ namespace Infrastructure.Persistence.Repositories
                 Data = data
             };
         }
-        public async Task<Vehicle?> GetByIdAsync(long id)
+        public async Task<Vehicle?> GetByIdAsync(long id, CancellationToken cancellationToken = default)
         {
             return await _context.Vehicles
                 .AsNoTracking()
-                .FirstOrDefaultAsync(v => v.Id == id);
+                .FirstOrDefaultAsync(v => v.Id == id, cancellationToken);
         }
 
-        public async Task<Vehicle?> GetByLicensePlateAsync(string plate)
+        public async Task<Vehicle?> GetByLicensePlateAsync(string plate, CancellationToken cancellationToken = default)
         {
             return await _context.Vehicles
                 .AsNoTracking()
-                .FirstOrDefaultAsync(v => v.LicensePlate == plate);
+                .FirstOrDefaultAsync(v => v.LicensePlate == plate, cancellationToken);
         }
 
         public async Task AddAsync(Vehicle vehicle)
@@ -97,12 +97,12 @@ namespace Infrastructure.Persistence.Repositories
             }
         }
         #region Stats
-        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters)
+        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters, CancellationToken cancellationToken = default)
         {
             return await _context.Vehicles
                 .AsNoTracking()
                 .ApplyFilters(filters)
-                .CountAsync();
+                .CountAsync(cancellationToken);
         }
         #endregion
     }
