@@ -44,7 +44,7 @@ namespace AutoBazarPinya
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Vehicle}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

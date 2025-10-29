@@ -1,8 +1,54 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "AutoBazar Pinya – Administrace vozidel";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="p-5 bg-light rounded-3 shadow-sm">
+        <h1 class="display-5 fw-bold text-primary mb-3">AutoBazar Pinya</h1>
+        <p class="lead text-secondary">
+            Administrační portál pro správu a analýzu vozidel.<br />
+            Systém umožňuje evidenci, úpravu a přehled o všech vozidlech v databázi.
+        </p>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-muted mb-3">🚗 Správa vozidel</h3>
+        <p>
+            Modul <strong>Seznam vozidel</strong> umožňuje správci:
+        </p>
+        <ul>
+            <li>prohlížet seznam všech registrovaných vozidel,</li>
+            <li>vytvářet nové záznamy o vozidle,</li>
+            <li>upravovat nebo mazat existující vozidla,</li>
+            <li>udržovat aktuální informace o stavu, roku výroby, typu paliva a dalších údajích.</li>
+        </ul>
+
+        <div class="text-center my-4">
+            <a href="/Vehicle/Index" class="btn btn-outline-primary btn-lg px-4">📋 Otevřít seznam vozidel</a>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3 class="text-muted mb-3">📊 Statistiky a filtrace</h3>
+        <p>
+            Modul <strong>Filtr vozidel</strong> poskytuje základní analytické přehledy:
+        </p>
+        <ul>
+            <li>počty vozidel podle různých parametrů (výrobce, palivo, stav, karoserie),</li>
+            <li>možnost kombinovat více filtrů současně,</li>
+            <li>přehled o trendech a rozložení dat (např. počet vozidel podle roku nebo typu paliva),</li>
+            <li>v budoucnu možnost přidání dalších metrik, např. průměrný nájezd, stáří nebo cena.</li>
+        </ul>
+
+        <div class="text-center my-4">
+            <a href="/Vehicle/Stats" class="btn btn-primary btn-lg px-4">🔍 Otevřít filtr vozidel</a>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center text-secondary small">
+        <hr />
+        <p class="mb-0">
+            © 2025 AutoBazar Pinya – interní administrační portál pro správu dat o vozidlech
+        </p>
+    </div>
 </div>
