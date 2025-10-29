@@ -12,5 +12,6 @@ namespace Domain.RepositoryInterfaces
         Task AddAsync(Vehicle vehicle);
         Task UpdateAsync(Vehicle vehicle);
         Task DeleteAsync(long id);
+        Task<int> GetFilteredCountAsync(QueryFilter[] filters);
     }
 }

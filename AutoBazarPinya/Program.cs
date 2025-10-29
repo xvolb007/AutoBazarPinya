@@ -22,6 +22,7 @@ namespace AutoBazarPinya
             // Should be moved to the service layer (StartupConfiguration) to avoid direct infrastructure dependency and reduce using clutter.
             builder.Services.AddScoped<IVehicleRepository,VehicleRepository>();
             builder.Services.AddScoped<IVehicleService,VehicleService>();
+            builder.Services.AddScoped<IVehicleFilterMapper, VehicleFilterMapper>();
             builder.Services.AddAutoMapper(typeof(VehicleProfile));
 
             var app = builder.Build();

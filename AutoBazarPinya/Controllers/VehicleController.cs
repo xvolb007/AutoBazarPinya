@@ -1,6 +1,5 @@
 ﻿using Application.Dtos;
 using Application.Interfaces;
-using AutoBazarPinya.Models;
 using AutoMapper;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +10,15 @@ namespace AutoBazarPinya.Controllers
     public class VehicleController : Controller
     {
         private readonly IVehicleService _vehicleService;
+        private readonly IVehicleFilterMapper _vehicleFilterMapper;
+
         private readonly IMapper _mapper;
 
-        public VehicleController(IVehicleService vehicleService, IMapper mapper)
+        public VehicleController(IVehicleService vehicleService, IMapper mapper, IVehicleFilterMapper vehicleFilterMapper)
         {
             _vehicleService = vehicleService;
             _mapper = mapper;
+            _vehicleFilterMapper = vehicleFilterMapper;
         }
 
         // GET: /Vehicle
@@ -114,23 +116,19 @@ namespace AutoBazarPinya.Controllers
         }
 
         // GET: /Vehicle/Stats
-        //mock stats
-        public async Task<IActionResult> Stats()
+        [HttpGet]
+        public IActionResult Stats()
         {
-            var vehicles = await _vehicleService.GetAllAsync();
+            return View();
+        }
 
-            var stats = new
-            {
-                Total = vehicles.Count(),
-                LowMileage = vehicles.Count(v => v.Mileage < 100000),
-                HighMileage = vehicles.Count(v => v.Mileage >= 100000),
-                Petrol = vehicles.Count(v => v.Fuel.ToString().Contains("Petrol")),
-                Diesel = vehicles.Count(v => v.Fuel.ToString().Contains("Diesel")),
-                Excellent = vehicles.Count(v => v.Condition.ToString().Contains("Excellent")),
-                Poor = vehicles.Count(v => v.Condition.ToString().Contains("Poor"))
-            };
-
-            return View(stats);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Count([FromForm] VehicleFilterVm vm)
+        {
+            var filters = _vehicleFilterMapper.Map(vm);
+            var count = await _vehicleService.GetFilteredCountAsync(filters);
+            return Json(new { count });
         }
     }
 }

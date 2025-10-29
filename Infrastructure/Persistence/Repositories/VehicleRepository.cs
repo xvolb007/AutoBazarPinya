@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Extensions;
 using Domain.Models;
 using Domain.RepositoryInterfaces;
 using Microsoft.EntityFrameworkCore;
@@ -95,5 +96,14 @@ namespace Infrastructure.Persistence.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+        #region Stats
+        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters)
+        {
+            return await _context.Vehicles
+                .AsNoTracking()
+                .ApplyFilters(filters)
+                .CountAsync();
+        }
+        #endregion
     }
 }

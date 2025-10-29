@@ -12,5 +12,6 @@ namespace Application.Interfaces
         Task AddAsync(CreateVehicleDto dto);
         Task UpdateAsync(UpdateVehicleDto dto);
         Task DeleteAsync(long id);
+        Task<int> GetFilteredCountAsync(QueryFilter[] filters);
     }
 }

@@ -75,5 +75,9 @@ namespace Application.Services
         {
             await _repository.DeleteAsync(id);
         }
+        public async Task<int> GetFilteredCountAsync(QueryFilter[] filters)
+        {
+            return await _repository.GetFilteredCountAsync(filters);
+        }
     }
 }

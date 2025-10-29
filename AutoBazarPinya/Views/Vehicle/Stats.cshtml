@@ -1,19 +1,100 @@
-﻿@model dynamic
+﻿@using Domain.Enums
 
 @{
-    ViewData["Title"] = "Statistiky";
+    ViewData["Title"] = "Statistika";
 }
 
-<h2>Statistiky vozidel</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">Filtr vozidel</h2>
 
-<table class="table table-bordered w-50">
-    <tr><th>Celkem vozidel</th><td>@Model.Total</td></tr>
-    <tr><th>Najeto méně než 100 000 km</th><td>@Model.LowMileage</td></tr>
-    <tr><th>Najeto více než 100 000 km</th><td>@Model.HighMileage</td></tr>
-    <tr><th>Benzín</th><td>@Model.Petrol</td></tr>
-    <tr><th>Nafta</th><td>@Model.Diesel</td></tr>
-    <tr><th>Vynikající stav</th><td>@Model.Excellent</td></tr>
-    <tr><th>Špatný stav</th><td>@Model.Poor</td></tr>
-</table>
+    <form id="filtersForm" class="row g-3" method="post" action="/Vehicle/Count">
+        @Html.AntiForgeryToken()
 
-<a asp-action="Index" class="btn btn-secondary">Zpět na seznam</a>
+        <div class="col-md-4">
+            <label for="manufacturer" class="form-label">Výrobce</label>
+            <input type="text" class="form-control" id="manufacturer" name="Manufacturer" placeholder="Např. Škoda">
+        </div>
+
+        <div class="col-md-4">
+            <label for="model" class="form-label">Model</label>
+            <input type="text" class="form-control" id="model" name="Model" placeholder="Např. Octavia">
+        </div>
+
+        <div class="col-md-4">
+            <label for="fuel" class="form-label">Palivo</label>
+            <select class="form-select" id="fuel" name="Fuel" asp-items="Html.GetEnumSelectList<FuelType>()">
+                <option value="">Vše</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="body" class="form-label">Karoserie</label>
+            <select class="form-select" id="body" name="Body" asp-items="Html.GetEnumSelectList<BodyType>()">
+                <option value="">Vše</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="condition" class="form-label">Stav vozidla</label>
+            <select class="form-select" id="condition" name="Condition" asp-items="Html.GetEnumSelectList<VehicleCondition>()">
+                <option value="">Vše</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label" for="yearMin">Rok od</label>
+            <input type="number" id="yearMin" name="YearMin" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label" for="yearMax">Rok do</label>
+            <input type="number" id="yearMax" name="YearMax" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label" for="mileageMin">Najeto od</label>
+            <input type="number" id="mileageMin" name="MileageMin" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label" for="mileageMax">Najeto do</label>
+            <input type="number" id="mileageMax" name="MileageMax" class="form-control">
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="button" class="btn btn-primary" id="applyFilters">Zobrazit počet</button>
+        </div>
+    </form>
+
+    <hr class="my-4" />
+
+    <div class="text-center">
+        <h4>Počet odpovídajících vozidel:</h4>
+        <h1 id="resultCount" class="display-4 text-success">–</h1>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("applyFilters").addEventListener("click", async () => {
+            const form = document.getElementById("filtersForm");
+            const fd = new FormData(form);
+
+            const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            const resp = await fetch(form.action, {
+                method: "POST",
+                headers: { "RequestVerificationToken": token },
+                body: fd
+            });
+
+            if (!resp.ok) {
+                document.getElementById("resultCount").textContent = "0";
+                return;
+            }
+
+            const data = await resp.json();
+            document.getElementById("resultCount").textContent = data.count ?? "0";
+        });
+    </script>
+}

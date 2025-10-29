@@ -27,4 +27,24 @@ namespace ViewModels
         public VehicleCondition Condition { get; set; }
         public string? Notes { get; set; }
     }
+    public class VehicleFilterVm
+    {
+        public string? Manufacturer { get; set; }
+        public string? Model { get; set; }
+
+        public FuelType? Fuel { get; set; }
+        public BodyType? Body { get; set; }
+        public VehicleCondition? Condition { get; set; }
+
+        public int? YearMin { get; set; }
+        public int? YearMax { get; set; }
+        public int? MileageMin { get; set; }
+        public int? MileageMax { get; set; }
+    }
+    public class VehicleStatsViewModel
+    {
+        public Dictionary<FuelType, string> FuelOptions { get; set; } = new();
+        public Dictionary<BodyType, string> BodyOptions { get; set; } = new();
+        public Dictionary<VehicleCondition, string> ConditionOptions { get; set; } = new();
+    }
 }
