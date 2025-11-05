@@ -1,5 +1,4 @@
 ﻿using Domain.Enums;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Domain.Entities
 {

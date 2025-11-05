@@ -1,6 +1,5 @@
 ﻿using Domain.Enums;
 using Domain.Extensions;
-using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Application.Dtos

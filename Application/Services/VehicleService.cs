@@ -4,7 +4,6 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Models;
 using Domain.RepositoryInterfaces;
-using System.Threading;
 
 namespace Application.Services
 {

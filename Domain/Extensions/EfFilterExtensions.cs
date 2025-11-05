@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
@@ -50,12 +48,10 @@ namespace Domain.Extensions
             if (validValues.Length == 0)
                 return Expression.Constant(false);
 
-            // создаём массив Т[], а не object[]
             var typedArray = Array.CreateInstance(underlyingType, validValues.Length);
             for (int i = 0; i < validValues.Length; i++)
                 typedArray.SetValue(ConvertTo(validValues[i], underlyingType), i);
 
-            // константа с типом IEnumerable<T>, значение — T[]
             var enumerableType = typeof(IEnumerable<>).MakeGenericType(underlyingType);
             var listConst = Expression.Constant(typedArray, enumerableType);
 
